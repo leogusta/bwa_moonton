@@ -1,7 +1,7 @@
 import TextInput from "../../Components/TextInput"
 import InputLabel from "../../Components/InputLabel"
 import PrimaryButton from "../../Components/PrimaryButton"
-import { Link } from "@inertiajs/react"
+import { Link, Head } from "@inertiajs/react"
 
 export default function login(params) {
     return (
@@ -37,11 +37,13 @@ export default function login(params) {
                                 </div>
                             </div>
                             <div className="grid space-y-[14px] mt-[30px]">
-                                <PrimaryButton type="button" variant='primary'>
-                                    <span className="text-base font-semibold">
-                                        Start Watching
-                                    </span>
-                                </PrimaryButton>
+                                <Link href={route('prototype.dashboard')}>
+                                    <PrimaryButton type="button" variant='primary'>
+                                        <span className="text-base font-semibold">
+                                            Start Watching
+                                        </span>
+                                    </PrimaryButton>
+                                </Link>
 
                                 <Link href={route('prototype.register')}>
                                     <PrimaryButton type="button" variant='light-outline'>
