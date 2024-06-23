@@ -1,5 +1,5 @@
-import Sidebar from '../../Layouts/Authenticated/Sidebar'
-import Topbar from '../../Layouts/Authenticated/Topbar'
+import Sidebar from './Sidebar'
+import Topbar from './Topbar'
 
 export default function Authenticated({ children }) {
     return (
