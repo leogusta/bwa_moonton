@@ -1,43 +1,35 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/* Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-}); */
-
 Route::redirect('/', 'login');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashboard.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+});
 
-Route::prefix('prototype')->name('prototype.')->group(function(){
-    Route::get('login', function(){
+Route::prefix('prototype')->name('prototype.')->group(function () {
+    Route::get('login', function () {
         return Inertia::render('Prototype/Login');
     })->name('login');
 
-    Route::get('register', function(){
+    Route::get('register', function () {
         return Inertia::render('Prototype/Register');
     })->name('register');
-    
-    Route::get('dashboard', function(){
+
+    Route::get('dashboard', function () {
         return Inertia::render('Prototype/Dashboard');
     })->name('dashboard');
-    
-    Route::get('subscriptionPlan', function(){
+
+    Route::get('subscriptionPlan', function () {
         return Inertia::render('Prototype/subscriptionPlan');
     })->name('subscriptionPlan');
-    
-    Route::get('movie/{slug}', function(){
+
+    Route::get('movie/{slug}', function () {
         return Inertia::render('Prototype/Movie/Show');
     })->name('movie.show');
 });
@@ -48,4 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
