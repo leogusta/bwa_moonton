@@ -1,6 +1,6 @@
 import PrimaryButton from "./PrimaryButton"
 
-export default function subscriptionPlan({ id, name, price, durationInMonth, features, isPremium, onSelectSubscripton }) {
+export default function subscriptionPlan({ id, name, price, durationInMonth, features, isPremium, onSelectSubscription }) {
     return (
         <>
             {/* START: Basic */}
@@ -28,15 +28,12 @@ export default function subscriptionPlan({ id, name, price, durationInMonth, fea
                     </div>
 
                     {/* START: Bottom: CTA Button */}
-                    <div onClick={onSelectSubscripton}>
-                        <PrimaryButton
-                            href={route('prototype.subscriptionPlan')}
-                            className="rounded-2xl border border-[#F1F1F1] py-[13px] text-center grid"
-                            type="Button"
-                            variant="white-outlline"
-                        >
-                            <span className="text-base">Start Basic</span>
-                        </PrimaryButton>
+                    <div onClick={onSelectSubscription}>
+                        <button type="button">
+                            <span className="text-base font-semibold">
+                                Subscribe Now
+                            </span>
+                        </button>
                     </div>
                 </div>
             )}
@@ -78,8 +75,8 @@ export default function subscriptionPlan({ id, name, price, durationInMonth, fea
                     </div>
 
                     {/* START: Bottom: CTA Button */}
-                    <div onClick={onSelectSubscripton}>
-                        <PrimaryButton 
+                    <div onClick={onSelectSubscription}>
+                        <PrimaryButton
                             className="rounded-2xl bg-alerange py-[13px] text-center grid"
                         >
                             <span className="text-base font-semibold">Subscribe Now</span>

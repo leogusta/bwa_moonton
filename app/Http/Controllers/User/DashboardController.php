@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -12,11 +14,6 @@ class DashboardController extends Controller
     {
         $featureMovies = Movie::whereIsFeatured(true)->get();
         $movies = Movie::all();
-
-        /* return [
-            'featureMovies' => $featureMovies,
-            'movies' => $movies
-        ]; */
 
         return inertia('User/Dashboard/Index', compact('featureMovies', 'movies'));
     }
