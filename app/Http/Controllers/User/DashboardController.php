@@ -12,6 +12,7 @@ class DashboardController extends Controller
 {
     function index()
     {
+        // dd(Auth::user()->getRoleNames());
         $featureMovies = Movie::whereIsFeatured(true)->get();
         $movies = Movie::all();
 
