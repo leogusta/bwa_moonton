@@ -4,10 +4,12 @@ import Authenticated from "@/Layouts/Authenticated/Index"
 import { Link, Head, useForm } from "@inertiajs/react"
 
 export default function Index({ auth, flashMessage, movies }) {
-    // const { delete: destroy, put } = useForm();
+    const { delete: destroy, put } = useForm();
 
     return (
         <Authenticated auth={auth}>
+            <Head title="List Movie" />
+
             <Link href={route('admin.dashboard.movie.create')}>
                 <PrimaryButton type='Button' className='w-40 mb-8'>
                     Insert New Movie
@@ -16,7 +18,7 @@ export default function Index({ auth, flashMessage, movies }) {
             {flashMessage?.message && (
                 <FlashMessage message={flashMessage.message} />
             )}
-            {/* <table className="table-fixed w-full text-center">
+            <table className="table-fixed w-full text-center">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -30,24 +32,19 @@ export default function Index({ auth, flashMessage, movies }) {
                     {movies.map((movie) => (
                         <tr key={movie.id}>
                             <td>
-                                <img
-                                    src={`/storage/${movie.thumbnail}`}
-                                    className="w-32 rounded-md"
-                                />
+                                {movie.thumbnail? 
+                                    (<img src={`/storage/${movie.thumbnail}`} className="w-32 rounded-md"/>) :
+                                    'empty'
+                                }
                             </td>
                             <td>{movie.name}</td>
                             <td>{movie.category}</td>
                             <td>{movie.rating.toFixed(1)}</td>
                             <td>
-                                <Link
-                                    href={route(
-                                        "admin.dashboard.movie.edit",
-                                        movie.id
-                                    )}
-                                >
-                                    <Button type="button" variant="warning">
+                                <Link href={route("admin.dashboard.movie.edit",movie.id)}>
+                                    <PrimaryButton type="button" variant="warning">
                                         Edit
-                                    </Button>
+                                    </PrimaryButton>
                                 </Link>
                             </td>
                             <td>
@@ -68,17 +65,17 @@ export default function Index({ auth, flashMessage, movies }) {
                                               );
                                     }}
                                 >
-                                    <Button type="button" variant="danger">
+                                    <PrimaryButton type="button" variant="danger">
                                         {movie.deleted_at
                                             ? "Restore"
                                             : "Delete"}
-                                    </Button>
+                                    </PrimaryButton>
                                 </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </table> */}
+            </table>
         </Authenticated>
     )
 }

@@ -43,6 +43,7 @@ export default forwardRef(function TextInput({
         <input
             {...props}
             type={type}
+            defaultValue={defaultValue}
             className={`rounded-2xl bg-form-bg py-[13px] px-7 w-full ${isError && "input-error"} input-${variant} ${className}`}
             ref={input}
             placeholder={placeholder}
