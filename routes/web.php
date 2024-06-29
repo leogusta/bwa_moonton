@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 Route::redirect('/', 'login');
 
-Route::middleware(['auth'])->prefix('dashboard')->name('user.dashboard.')->group(function () {
+Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     
     Route::get('movie/{movie:slug}', [MovieController::class, 'show'])->name('movie.show')->middleware('checkUserSubscription:true');
@@ -20,7 +20,8 @@ Route::middleware(['auth'])->prefix('dashboard')->name('user.dashboard.')->group
     Route::post('subscription-plan/{subscriptionPlan}/user-subscribe', [SubscriptionPlanController::class, 'userSubscribe'])->name('subscriptionPlan.userSubscribe')->middleware('checkUserSubscription:false');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+    route::put('movie/{movie}/restore', [AdminMovieController::class, 'restore'])->name('movie.restore');
     route::resource('movie', AdminMovieController::class);
 });
 

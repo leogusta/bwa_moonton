@@ -17,7 +17,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::all();
+        $movies = Movie::withTrashed()->orderBy('deleted_at')->get();
 
         return inertia('Admin/Movie/Index', compact('movies'));
     }
