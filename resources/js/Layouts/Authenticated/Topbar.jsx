@@ -8,7 +8,7 @@ export default function Topbar({ name }) {
     const triggerDropdown = () => {
         if (dropdownOpen) {
             dropdownTarget.current.classList.remove('hidden')
-            console.log(dropdownTarget.current);
+            // console.log(dropdownTarget.current);
         } else {
             dropdownTarget.current.classList.add('hidden')
         }
