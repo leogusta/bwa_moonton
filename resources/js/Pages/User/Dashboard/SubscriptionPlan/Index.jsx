@@ -1,24 +1,28 @@
 import Authenticated from "@/Layouts/Authenticated/Index";
-import SubscriptionCard from "@/Components/SubscriptionCard"
-import { Head, router } from '@inertiajs/react'
+import SubscriptionCard from "@/Components/SubscriptionCard";
+import { Head, router } from "@inertiajs/react";
 
-export default function subscriptionPlan({ auth, subscriptionPlans, userSubscription }) {
-    const selectSubscription = id => {
+export default function subscriptionPlan({
+    auth,
+    subscriptionPlans,
+    env
+}) {
+    const selectSubscription = (id) => {
         router.post(
             route("user.dashboard.subscriptionPlan.userSubscribe", {
                 subscriptionPlan: id,
             }),
-            // {},
-            // {
-            //     only: ["userSubscription"],
-            //     onSuccess: ({ props }) => {
-            //         onSnapMidtrans(props.userSubscription);
-            //     },
-            // }
+            {},
+            {
+                only: ["userSubscription"],
+                onSuccess: ({ props }) => {
+                    onSnapMidtrans(props.userSubscription);
+                },
+            }
         );
-    }
+    };
 
-    /* const onSnapMidtrans = (userSubscription) => {
+    const onSnapMidtrans = (userSubscription) => {
         snap.pay(userSubscription.snap_token, {
             // Optional
             onSuccess: function (result) {
@@ -33,22 +37,24 @@ export default function subscriptionPlan({ auth, subscriptionPlans, userSubscrip
                 console.log({ result });
             },
         });
-    }; */
+    };
 
     return (
         <Authenticated auth={auth}>
-            {/* <Head title="Subscription Plan">
+            <Head title="Subscription Plan">
                 <script
                     src="https://app.sandbox.midtrans.com/snap/snap.js"
                     data-client-key={env.MIDTRANS_CLIENTKEY}
                 ></script>
-            </Head> */}
+            </Head>
+
             <div className="py-20 flex flex-col items-center">
                 <div className="text-black font-semibold text-[26px] mb-3">
                     Pricing for Everyone
                 </div>
                 <p className="text-base text-gray-1 leading-7 max-w-[302px] text-center">
-                    Invest your little money to get a whole new experiences from movies.
+                    Invest your little money to get a whole new experiences from
+                    movies.
                 </p>
 
                 {/* START: Pricing Card */}
@@ -57,16 +63,20 @@ export default function subscriptionPlan({ auth, subscriptionPlans, userSubscrip
                         <SubscriptionCard
                             name={subscriptionPlan.name}
                             price={subscriptionPlan.price}
-                            durationInMonth={subscriptionPlan.active_period_in_months}
+                            durationInMonth={
+                                subscriptionPlan.active_period_in_months
+                            }
                             features={JSON.parse(subscriptionPlan.features)}
                             isPremium={subscriptionPlan.name === "Premium"}
                             key={subscriptionPlan.id}
-                            onSelectSubscription={() => selectSubscription(subscriptionPlan.id)}
+                            onSelectSubscription={() =>
+                                selectSubscription(subscriptionPlan.id)
+                            }
                         />
                     ))}
                 </div>
                 {/* START: /Pricing Card */}
             </div>
         </Authenticated>
-    )
+    );
 }
